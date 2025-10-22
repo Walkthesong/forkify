@@ -1,4 +1,5 @@
 import View from './View';
+import previewView from './previewView';
 import icon from 'url:../../img/icons.svg';
 
 class ResultView extends View {

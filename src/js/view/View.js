@@ -20,7 +20,7 @@ export default class View {
     const markUp = this._generateMarkup();
 
     //只想要返回的字符串，不想要插入到DOM中
-    if (!render) return;
+    if (!render) return markUp;
 
     this._clear();
     this._parentEl.insertAdjacentHTML('afterbegin', markUp);

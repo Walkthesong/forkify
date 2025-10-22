@@ -34,6 +34,7 @@ const controlRecipe = async function () {
     // 2) 渲染食谱
     recipeView.render(model.state.recipe);
   } catch (err) {
+    console.error(err);
     recipeView.renderError();
   }
 };
@@ -66,9 +67,11 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe);
 };
 
-const controlAddBookMark = function () {
+const controlAddBookmark = function () {
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
+
+  console.log(model.state.bookmarks);
 
   recipeView.update(model.state.recipe);
 
@@ -96,7 +99,7 @@ const controlAddRecipe = async function () {
     addRecipeView.renderMessage();
 
     // Render bookmark view
-    bookmarksView.render(model.state.bookmarks);
+    bookmarkView.render(model.state.bookmarks);
 
     // Change ID in URL
     window.history.pushState(null, '', `#${model.state.recipe.id}`);
@@ -117,6 +120,7 @@ const init = function () {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   recipeView.addHandlerServings(controlServings);
-  recipeView.addHandlerBookMark(controlAddBookMark);
+  recipeView.addHandlerBookmark(controlAddBookmark);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 init();

@@ -1,4 +1,4 @@
-import { API_URL, RES_PER_PAGE } from './config';
+import { API_URL, RES_PER_PAGE, KEY } from './config';
 import { AJAX } from './helper';
 
 //保存获取的所有数据
@@ -32,13 +32,13 @@ const createRecipeObject = function (data) {
 //不返回任何值，仅更新state对象的数据
 export const loadRecipe = async function (id) {
   try {
-    const data = await AJAX(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}?key=${KEY}`);
     state.recipe = createRecipeObject(data);
 
     //防止重新加载之后，收藏的菜谱丢失
     if (state.bookmarks.some(bookmark => bookmark.id === id)) {
       state.recipe.bookmarked = true;
-    } else state.recipe.bookmarked = true;
+    } else state.recipe.bookmarked = false;
   } catch (err) {
     //让错误继续往下传递，使其能被最终的函数捕捉到
     throw err;
@@ -49,7 +49,7 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
 
-    const data = await AJAX(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
 
     state.search.results = data.data.recipes.map(rec => {
       return {
