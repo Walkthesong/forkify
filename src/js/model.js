@@ -39,9 +39,6 @@ export const loadRecipe = async function (id) {
     if (state.bookmarks.some(bookmark => bookmark.id === id)) {
       state.recipe.bookmarked = true;
     } else state.recipe.bookmarked = true;
-
-    //使每次搜索之后，页面重置为1
-    state.search.page = 1;
   } catch (err) {
     //让错误继续往下传递，使其能被最终的函数捕捉到
     throw err;
@@ -52,7 +49,7 @@ export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
 
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}`);
 
     state.search.results = data.data.recipes.map(rec => {
       return {
@@ -60,8 +57,12 @@ export const loadSearchResults = async function (query) {
         title: rec.title,
         publisher: rec.publisher,
         image: rec.image_url,
+        ...(rec.key && { key: rec.key }),
       };
     });
+
+    //使每次搜索之后，页面重置为1
+    state.search.page = 1;
   } catch (err) {
     console.error(`${err}`);
     throw err;
