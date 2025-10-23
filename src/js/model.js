@@ -87,7 +87,7 @@ export const updateServings = function (newServings) {
 };
 
 export const presistBookmark = function () {
-  localStorage.setItem('bookmark', JSON.stringify(state.bookmarks));
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 
 export const addBookmark = function (recipe) {

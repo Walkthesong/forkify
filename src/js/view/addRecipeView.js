@@ -2,7 +2,7 @@ import View from './View.js';
 import icon from 'url:../../img/icons.svg';
 
 class AddRecipeView extends View {
-  _parentElement = document.querySelector('.upload');
+  _parentEl = document.querySelector('.upload');
   _message = 'Recipe was successfully uploaded :)';
 
   _window = document.querySelector('.add-recipe-window');
@@ -31,7 +31,7 @@ class AddRecipeView extends View {
   }
 
   addHandlerUpload(handler) {
-    this._parentElement.addEventListener('submit', function (e) {
+    this._parentEl.addEventListener('submit', function (e) {
       e.preventDefault();
       //用表单元素（this）创建一个 FormData，里面是按顺序的键值对迭代器
       //将FormData展开成数组

@@ -1,4 +1,5 @@
 import * as model from './model';
+import { MODAL_CLOSE_SEC } from './config';
 import recipeView from './view/recipeView';
 import searchView from './view/searchView';
 import resultView from './view/resultView';
@@ -83,7 +84,7 @@ const controlBookmark = function () {
   bookmarkView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = async function () {
+const controlAddRecipe = async function (newRecipe) {
   try {
     // Show loading spinner
     addRecipeView.renderSpinner();
